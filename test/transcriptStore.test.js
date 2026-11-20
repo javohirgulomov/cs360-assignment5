@@ -77,4 +77,13 @@ describe("TranscriptStore", () => {
     store.changeGrade(studentID, "CS360", 95);
     assert.equal(store.getGrade(studentID, "CS360"), 95);
   });
+
+    test("name search ignores case and surrounding whitespace", () => {
+    const studentID = store.addStudent("Grace Lee");
+
+    assert.deepEqual(store.getStudentIDs("  grace lee  "), [studentID]);
+    assert.deepEqual(store.getStudentIDs("GRACE LEE"), [studentID]);
+    assert.equal(store.getTranscript(studentID).student.studentName, "Grace Lee");
+  });
+  
 });
