@@ -104,4 +104,13 @@ export class TranscriptStore {
     }
     return student;
   }
+
+    deleteStudent(studentID) {
+    const parsedID = this.#parseStudentID(studentID);
+    if (!this.#students.delete(parsedID)) {
+      throw new Error(`Student not found: ${parsedID}`);
+    }
+    this.#grades.delete(parsedID);
+  }
+  
 }
